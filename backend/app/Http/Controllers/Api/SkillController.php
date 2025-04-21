@@ -17,14 +17,7 @@ class SkillController extends Controller
      */
     public function index()
     {
-        // Option 1: Without caching
-        // $skills = Skill::orderBy('name')->get(['id', 'name']);
-
-        // Option 2: With caching (Recommended if skills don't change often)
-        $skills = Cache::remember('all_skills', now()->addHour(), function () { // Cache for 1 hour
-            return Skill::orderBy('name')->get(['id', 'name']);
-        });
-
+        $skills = Skill::orderBy('name')->get(['id', 'name']);
         return response()->json($skills);
     }
 
